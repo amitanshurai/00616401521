@@ -8,14 +8,21 @@ let storageNumbers = {};
 
 // Function to fetch numbers from third-party server
 async function fetchNumbers(numberType) {
-  try {
-    const response = await axios.get(`http://20.244.56.144/test/${numberType}`);
-    return response.data.numbers;
-  } catch (error) {
-    console.error('Error while receiving numbers: ', error.message);
-    return [];
+    try {
+      const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiZXhwIjoxNzIwNzA3NjQyLCJpYXQiOjE3MjA3MDczNDIsImlzcyI6IkFmZm9yZG1lZCIsImp0aSI6Ijc3M2Q4Y2EwLTQ4MzQtNGIwYi1hNDU1LWZjZjlmOTEzYmI1NCIsInN1YiI6ImFtaXRhbnNodTIzMkBnbWFpbC5jb20ifSwiY29tcGFueU5hbWUiOiJzaGFndW4iLCJjbGllbnRJRCI6Ijc3M2Q4Y2EwLTQ4MzQtNGIwYi1hNDU1LWZjZjlmOTEzYmI1NCIsImNsaWVudFNlY3JldCI6InNkbnpacnp6bXVYZ1pOZ3giLCJvd25lck5hbWUiOiJBbWl0YW5zaHUiLCJvd25lckVtYWlsIjoiYW1pdGFuc2h1MjMyQGdtYWlsLmNvbSIsInJvbGxObyI6IjAwNjE2NDAxNTIxIn0.8VRocGnD6iuqSwW4zgS-UM5kQaknI8tj6XebAY3rulg'; // Replace with your actual API key
+      const response = await axios.get(`http://20.244.56.144/test/${numberType}`, {
+        headers: {
+          'Authorization': `Bearer ${API_KEY}`, // Example of using Bearer token
+          // Add other headers if required
+        }
+      });
+      return response.data.numbers;
+    } catch (error) {
+      console.error('Error while receiving numbers:', error.message);
+      return [];
+    }
   }
-}
+  
 
 // Function to calculate the average
 function calculateAverage(numbers) {
